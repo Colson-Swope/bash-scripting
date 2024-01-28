@@ -1,14 +1,47 @@
-#!/bin/bash 
+#!/bin/bash
 
-# Write a script that inspects a log file 
+# script should check to see how often the apt command is run on a linux system #
+# fist the script should check for command line arguments (script path)
 
-# use the lastlog file on the WWU lab machines 
-# this file is located in /var/log
-# the overall goal is to iterate though this log file and determine useful info based on what is found in the log file 
-# Our goal: how many times did user X log in between January and December 
+# first argument should check for -h
 
-# two cmd args: target user and target date range (in months) 
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -f)
+            file_path="$2"
+            shift #skip the value
+            ;;
+        -u)
+            user="$2"
+            shift #skip the value
+            ;;
+        -h)
+            echo "Welcome to Log Inspect written by Colson Swope!"
+            echo ""
+            echo "Usage: "
+            exit 0
+            ;;
+        *) 
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+    shift #
+done
 
-# must include one function (what do I want this function to be?) 
+if [ -z "$file_path" ] && [ -z "$user" ]; then
+    echo "No options provided. Usage: $0 -f <file_path> -u <user>"
+    exit 1
+fi
+
+if [ -n "$file_path" ]; then
+    echo "File path specified: $file_path"
+fi
+
+if [ -n "$user" ]; then
+   echo "Searching log for user specified: $user"
+   grep "Requested-By: $user" "$file_path" 
+fi
+
 
 
