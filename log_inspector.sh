@@ -8,22 +8,22 @@
 while [ $# -gt 0 ]; do
     case "$1" in
         -f)
-            file_path="$3"
+            file_path="$2"
             shift #skip the value
             ;;
         -u)
-            user="$3"
+            user="$2"
             shift #skip the value
             ;;
         -h)
-            echo "Welcome to Log Inspect written by Colson Swope!"
+            echo "Welcome to Apt Log Inspect written by Colson Swope!"
             echo ""
             echo "Usage: "
             exit 0
             ;;
 
         -s)
-            start_date="$3"
+            start_date="$2"
             shift #skip this value
             ;;
         *)
@@ -49,8 +49,8 @@ if [ -n "$user" ]; then
 fi
 
 if [ -n "$start_date" ]; then
-    echo "Searching start date of apt command: "
-    grep "Start-Date: " "$file_path"
+    echo "Searching start date of apt command: $start_date "
+    grep "Start-Date: $start_date" "$file_path"
 fi
 
 
