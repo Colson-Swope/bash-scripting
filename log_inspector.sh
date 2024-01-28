@@ -1,53 +1,81 @@
 #!/bin/bash
 
-# script should check to see how often the apt command is run on a linux system #
-# fist the script should check for command line arguments (script path)
+##################################################################################################################################################################################
+# Colson Swope 																					 #
+# 01/27/2024																					 #
+#																						 #
+#																						 #
+# This program is titled 'Apt Log Inspect' and it does just that. This script will search the path specified by the user. In this case, it will be the location of the apt log.  #
+# Once the apt log file path has been specified, the program will look for certain flags. The flags that the user is able to choose are -h, -f, -u, and -s. -h provides          #
+# a general overview of the program's function, -f allows the user to specify a custom file path, -u allows the user to specify a certain user to search for in the log,         #
+# and -s allows the user to specify for a certain year that the apt command was ran.												 #
+#																						 #
+##################################################################################################################################################################################
 
-# first argument should check for -h
+# references that I used:
+# https://www.cyberciti.biz/faq/bash-while-loop/
+# https://www.gnu.org/savannah-checkouts/gnu/grep/manual/grep.html
+# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
+# https://www.geeksforgeeks.org/bash-scripting-if-statement/
 
+# show user how to use this program
+help_screen() {
+    echo "Welcome to Apt Log Inspect written by Colson Swope!"
+    echo ""
+    echo "Usage: "
+    echo ""
+    echo "-h Display help for program"
+    echo "-u Specify a specific user for the program to search for"
+    echo "-s Specify a specific date (in years) for the program to search for"
+    exit 0
+}
+
+# this while loop is used to handle our CMD args
 while [ $# -gt 0 ]; do
     case "$1" in
         -f)
             file_path="$2"
-            shift #skip the value
+            shift #shift the argument over
             ;;
         -u)
             user="$2"
-            shift #skip the value
+            shift #shift the argument over
             ;;
         -h)
-            echo "Welcome to Apt Log Inspect written by Colson Swope!"
-            echo ""
-            echo "Usage: "
-            exit 0
+            help_screen
             ;;
 
         -s)
             start_date="$2"
-            shift #skip this value
+            shift #shift the argument over
             ;;
         *)
-            echo "Unknown option: $1"
+            echo "Apt Log Inspect: Unknown option: $1" >&2
             exit 1
             ;;
     esac
-    shift #
+    shift
 done
 
-if [ -z "$file_path" ] && [ -z "$user" ]; then
-    echo "No options provided. Usage: $0 -f <file_path> -u <user>"
-    exit 1
+# if we do not provide any options, print this error message
+if [ -z "$file_path" ] && [ -z "$user" ] && [ -z "$start_date"]; then
+    echo "Apt Log Inspect: No options provided. Usage: $0 -f <file_path> -u <user> -s <date (year)>" >&2
+    exit 2
 fi
 
+# print out which file path the user entered
 if [ -n "$file_path" ]; then
     echo "File path specified: $file_path"
 fi
 
+# print out user info, iterate through and count up times user ran apt command
 if [ -n "$user" ]; then
    echo "Searching log for user specified: $user"
-   grep "Requested-By: $user" "$file_path"
+   user_count=$(grep -c "Requested-By: $user" "$file_path")
+   echo "User ran this command $user_count times"
 fi
 
+# print out the start date of the apt command
 if [ -n "$start_date" ]; then
     echo "Searching start date of apt command: $start_date "
     grep "Start-Date: $start_date" "$file_path"
