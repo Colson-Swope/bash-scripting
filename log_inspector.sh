@@ -8,11 +8,11 @@
 while [ $# -gt 0 ]; do
     case "$1" in
         -f)
-            file_path="$2"
+            file_path="$3"
             shift #skip the value
             ;;
         -u)
-            user="$2"
+            user="$3"
             shift #skip the value
             ;;
         -h)
@@ -21,7 +21,12 @@ while [ $# -gt 0 ]; do
             echo "Usage: "
             exit 0
             ;;
-        *) 
+
+        -s)
+            start_date="$3"
+            shift #skip this value
+            ;;
+        *)
             echo "Unknown option: $1"
             exit 1
             ;;
@@ -40,8 +45,12 @@ fi
 
 if [ -n "$user" ]; then
    echo "Searching log for user specified: $user"
-   grep "Requested-By: $user" "$file_path" 
+   grep "Requested-By: $user" "$file_path"
 fi
 
+if [ -n "$start_date" ]; then
+    echo "Searching start date of apt command: "
+    grep "Start-Date: " "$file_path"
+fi
 
 
