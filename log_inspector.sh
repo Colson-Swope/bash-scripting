@@ -3,13 +3,13 @@
 # Colson Swope
 # 01/27/2024
 																	 																						 #
-# This program is titled 'Apt Log Inspect' and it does just that. This script will search the path specified by the user. In this case, it will be the location of the apt log.
-# Once the apt log file path has been specified, the program will look for certain flags. The flags that the user is able to choose are -h, -f, -u, and -s. -h provides
-# a general overview of the program's function, -f allows the user to specify a custom file path, -u allows the user to specify a certain user to search for in the log,
-# and -s allows the user to specify for a certain year that the apt command was ran.
+# This script will search the path specified by the user. In this case, it will be the location of the apt log
+# Once the apt log file path has been specified, the program will look for certain flags. The flags that the user is able to choose are -h, -f, -u, and -s
+# -h provides a general overview of the program's function
+# -f allows the user to specify a custom file path
+# -u allows the user to specify a certain user to search for in the log
+# -s allows the user to specify for a certain year that the apt command was ran
 
-
-# show user how to use this program
 help_screen() {
     echo "Welcome to Apt Log Inspect written by Colson Swope!
 
