@@ -1,32 +1,27 @@
 #!/bin/bash
 
-##################################################################################################################################################################################
-# Colson Swope 																					 #
-# 01/27/2024																					 #
-#																						 #
-#																						 #
-# This program is titled 'Apt Log Inspect' and it does just that. This script will search the path specified by the user. In this case, it will be the location of the apt log.  #
-# Once the apt log file path has been specified, the program will look for certain flags. The flags that the user is able to choose are -h, -f, -u, and -s. -h provides          #
-# a general overview of the program's function, -f allows the user to specify a custom file path, -u allows the user to specify a certain user to search for in the log,         #
-# and -s allows the user to specify for a certain year that the apt command was ran.												 #
-#																						 #
-##################################################################################################################################################################################
+# Colson Swope
+# 01/27/2024
+																	 																						 #
+# This program is titled 'Apt Log Inspect' and it does just that. This script will search the path specified by the user. In this case, it will be the location of the apt log.
+# Once the apt log file path has been specified, the program will look for certain flags. The flags that the user is able to choose are -h, -f, -u, and -s. -h provides
+# a general overview of the program's function, -f allows the user to specify a custom file path, -u allows the user to specify a certain user to search for in the log,
+# and -s allows the user to specify for a certain year that the apt command was ran.
 
-# references that I used:
-# https://www.cyberciti.biz/faq/bash-while-loop/
-# https://www.gnu.org/savannah-checkouts/gnu/grep/manual/grep.html
-# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
-# https://www.geeksforgeeks.org/bash-scripting-if-statement/
 
 # show user how to use this program
 help_screen() {
-    echo "Welcome to Apt Log Inspect written by Colson Swope!"
-    echo ""
-    echo "Usage: "
-    echo ""
-    echo "-h Display help for program"
-    echo "-u Specify a specific user for the program to search for"
-    echo "-s Specify a specific date (in years) for the program to search for"
+    echo "Welcome to Apt Log Inspect written by Colson Swope!
+
+    Usage:
+
+    ./log_inspector.sh -f </path/to/apt/file> -u <user> -s <year>
+
+    -f Specify apt log file path
+    -h Display help for a program
+    -u Specify a specific user for the program to search for
+    -s Specify the date command was ran
+"
     exit 0
 }
 
